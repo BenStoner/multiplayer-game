@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Gun/Gun.gd" type="Script" id=1]
+[ext_resource path="res://sounds/Toy Gun Shoot Pellet - QuickSounds.com.mp3" type="AudioStream" id=2]
+[ext_resource path="res://Bullets/laserBullet/lineBullet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Gun/gun P1.png" type="Texture" id=4]
+[ext_resource path="res://Gun/gun P4.png" type="Texture" id=5]
+[ext_resource path="res://Gun/gun P2.png" type="Texture" id=6]
+[ext_resource path="res://Gun/gun P3.png" type="Texture" id=7]
+
+[node name="Gun" type="Node2D"]
+script = ExtResource( 1 )
+LineBullet = ExtResource( 3 )
+input_shoot = "shoot0"
+gun_textures = [ ExtResource( 4 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 5 ) ]
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 13, -2 )
+__meta__ = {
+"_gizmo_extents_": 1.0
+}
+
+[node name="WallDetection" type="RayCast2D" parent="."]
+position = Vector2( -8, -2 )
+enabled = true
+cast_to = Vector2( 20, 0 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+volume_db = -20.0
+pitch_scale = 1.5
+bus = "SFX"

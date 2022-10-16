@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Toy Gun Shoot Pellet - QuickSounds.com.mp3-3a4918b304100a2ae55f42b18c36c86a.mp3str"
+
+[deps]
+
+source_file="res://sounds/Toy Gun Shoot Pellet - QuickSounds.com.mp3"
+dest_files=[ "res://.import/Toy Gun Shoot Pellet - QuickSounds.com.mp3-3a4918b304100a2ae55f42b18c36c86a.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

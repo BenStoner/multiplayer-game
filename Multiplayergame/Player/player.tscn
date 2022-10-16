@@ -1,0 +1,113 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Player/PlayerController.gd" type="Script" id=1]
+[ext_resource path="res://Player/Sprites/player-Sheet P1.png" type="Texture" id=2]
+[ext_resource path="res://Player/Sprites/player-Sheet P3.png" type="Texture" id=3]
+[ext_resource path="res://Hurt and Hit box/HurtBox.gd" type="Script" id=4]
+[ext_resource path="res://Gun/GunHolder.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Player/Sprites/player-Sheet P4.png" type="Texture" id=7]
+[ext_resource path="res://Player/Sprites/player-Sheet P2.png" type="Texture" id=8]
+
+[sub_resource type="RectangleShape2D" id=24]
+extents = Vector2( 9, 10 )
+
+[sub_resource type="ShaderMaterial" id=21]
+
+[sub_resource type="RectangleShape2D" id=25]
+extents = Vector2( 9, 10 )
+
+[sub_resource type="Animation" id=26]
+resource_name = "Bounce"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "KillPlayer"
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.8 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[node name="Player" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+max_jump_height = 200
+double_jump_height = 120
+falling_gravity_multiplier = 1.0
+max_jump_amount = 2
+friction = 10
+wall_slide_speed = 0.1
+can_wall_slide = false
+health = 1000
+dash_speed = 600.0
+dash_length = 0.15
+player_textures = [ ExtResource( 2 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 7 ) ]
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 6
+collision_mask = 4
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2( 3, 6 )
+shape = SubResource( 24 )
+
+[node name="GunHolder" parent="." instance=ExtResource( 5 )]
+position = Vector2( 3, 5 )
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 21 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+modulate = Color( 0.337255, 0.827451, 1, 1 )
+position = Vector2( 3, 6 )
+shape = SubResource( 25 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Bounce = SubResource( 26 )
+anims/KillPlayer = SubResource( 27 )
+
+[node name="DashTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Raycasts" type="Node2D" parent="."]
+
+[node name="RightWallCollide" type="RayCast2D" parent="Raycasts"]
+enabled = true
+cast_to = Vector2( 20, 0 )
+
+[node name="LeftWallCollide" type="RayCast2D" parent="Raycasts"]
+enabled = true
+cast_to = Vector2( -14, 0 )
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( -1, 15 )

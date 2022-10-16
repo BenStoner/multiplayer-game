@@ -1,0 +1,17 @@
+[gd_resource type="Theme" load_steps=5 format=2]
+
+[ext_resource path="res://Art/Font/NewHiScore.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.996078, 0.329412, 0.435294, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 0.815686, 0.501961, 1 )
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 1 )
+
+[resource]
+default_font = SubResource( 1 )
+HScrollBar/styles/grabber = SubResource( 2 )
+HScrollBar/styles/scroll = SubResource( 3 )
